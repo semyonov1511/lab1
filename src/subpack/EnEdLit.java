@@ -8,6 +8,6 @@ package subpack;
  *
  * @author semyo
  */
-public class EnEdLit {
+public class EnEdLit extends EdLit{
     
 }
