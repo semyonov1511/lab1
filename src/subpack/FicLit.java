@@ -8,10 +8,10 @@ package subpack;
  *
  * @author semyo
  */
-public class EnEduLit extends EduLit{
+public class FicLit extends Literature{
     
-    public EnEduLit(String name, String subject, String language, String level, String author, String university) {
-        super(name, subject, language, level, author, university);
+    public FicLit(String name, String language) {
+        super(name, language);
     }
     
 }
