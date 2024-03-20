@@ -8,6 +8,10 @@ package subpack;
  *
  * @author semyo
  */
-public class RuEduLit extends Literature{
+public class RuEduLit extends EduLit{
+    
+    public RuEduLit(String name, String subject, String language, String level, String author, String university) {
+        super(name, subject, language, level, author, university);
+    }
     
 }

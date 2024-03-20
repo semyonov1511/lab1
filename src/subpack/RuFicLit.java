@@ -8,6 +8,11 @@ package subpack;
  *
  * @author semyo
  */
-public class RuFicLit {
+public class RuFicLit extends FicLit{
+    
+    public RuFicLit(String name, String language, String genre) {
+        super(name, language, genre);
+    }
+    
     
 }

@@ -10,8 +10,11 @@ package subpack;
  */
 public class FicLit extends Literature{
     
-    public FicLit(String name, String language) {
+    String genre;
+    
+    public FicLit(String name, String language, String genre) {
         super(name, language);
+        this.genre = genre;
     }
     
 }
