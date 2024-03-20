@@ -8,6 +8,6 @@ package subpack;
  *
  * @author semyo
  */
-public class RuEdLit extends EdLit{
+public class RuEduLit extends Literature{
     
 }

@@ -1,5 +1,8 @@
 
-package subpack;
+package Humens;
+
+import Humens.Teacher;
+import Humens.Student;
 
 
 public class PersonFactory {
@@ -7,7 +10,7 @@ public class PersonFactory {
         return new Student(firstName,lastName);
     }
     
-    public Person createProduct(String firstName, String lastName, String middleName){
+    public Person createPerson(String firstName, String lastName, String middleName){
         return new Teacher(firstName,lastName,middleName);
     }
     

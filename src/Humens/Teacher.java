@@ -1,5 +1,5 @@
 
-package subpack;
+package Humens;
 
 public class Teacher extends Person{
     

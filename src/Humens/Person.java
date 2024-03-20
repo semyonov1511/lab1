@@ -1,5 +1,5 @@
 
-package subpack;
+package Humens;
 
 public abstract class Person {
     public String firstName;

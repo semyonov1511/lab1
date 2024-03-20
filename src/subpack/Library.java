@@ -48,7 +48,7 @@ public class Library {
         return names;
     }
     
-     public static ArrayList<String> setSurnames(){
+    public static ArrayList<String> setSurnames(){
         int b = 0;
         ArrayList<String> surnames = new ArrayList<String>();
         FileInputStream fis = null;
