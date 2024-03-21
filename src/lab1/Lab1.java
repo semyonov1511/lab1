@@ -4,12 +4,16 @@
  */
 package lab1;
 
+import Rooms.GUI;
+import Rooms.Library;
 import subpack.*;
 
 public class Lab1 {
 
     public static void main(String[] args) {
-        Library.generatePeople();
+        // Library.generatePeople();
+        GUI gui = new GUI();
+        gui.setVisible(true);
     }
     
 }
