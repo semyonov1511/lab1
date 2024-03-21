@@ -9,16 +9,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class Library {
-    public static void generatePeople(){
-        ArrayList<String> names = setNames();
-        ArrayList<String> surnames = setSurnames();
+public class Library { 
+    ArrayList<String> names;
+    ArrayList<String> surnames;
+    public void generatePeople(){
+        this.names = setNames();
+        this.surnames = setSurnames();
         for (int i = 0; i < 30; i++) {
-                System.out.println(names.get(i));
-                System.out.println(surnames.get(i));
-            }
+                //System.out.println(names.get(i));
+                //System.out.println(surnames.get(i));
+        }
     }
     
+    public ArrayList<String> returnNames(){
+        return this.names;
+    }
+    public ArrayList<String> returnSurnames(){
+        return this.surnames;
+    }
     public static ArrayList<String> setNames(){
         int b = 0;
         ArrayList<String> names = new ArrayList<String>();

@@ -7,21 +7,26 @@ package Rooms;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import Humens.*;
+import Rooms.*;
+
 /**
  *
  * @author semyo
  */
 public class GUI extends javax.swing.JFrame {
 
+    Library library = new Library();
+    
     DefaultTreeModel model;
     PersonFactory factory = new PersonFactory();
-    
+
     public GUI() {
+        library.generatePeople();
         initComponents();
     }
 
     DefaultMutableTreeNode users = new DefaultMutableTreeNode("Users");
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -68,9 +73,10 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-        Person student = factory.createPerson("Леонид","Баврин");
-        users.add(new DefaultMutableTreeNode(student.getFirstName()+student.getLastName()));
-        model = (DefaultTreeModel)Tree.getModel();
+        Person student = factory.createPerson(library.returnNames().get(0 + (int) (Math.random() * (29 - 0 + 1))), 
+                                                library.returnSurnames().get(0 + (int) (Math.random() * (29 - 0 + 1))));
+        users.add(new DefaultMutableTreeNode(student.getFirstName() + " " + student.getLastName()));
+        model = (DefaultTreeModel) Tree.getModel();
         model.setRoot(users);
         Tree.setModel(model);
     }//GEN-LAST:event_AddActionPerformed
