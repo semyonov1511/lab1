@@ -16,7 +16,7 @@ import Rooms.*;
 public class GUI extends javax.swing.JFrame {
 
     Library library = new Library();
-    
+
     DefaultTreeModel model;
     PersonFactory factory = new PersonFactory();
 
@@ -73,8 +73,15 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-        Person student = factory.createPerson(library.returnNames().get(0 + (int) (Math.random() * (29 - 0 + 1))), 
-                                                library.returnSurnames().get(0 + (int) (Math.random() * (29 - 0 + 1))));
+        int i = (int) (Math.random() * 30);
+        Person student;
+        if (i >= 20) {
+            student = factory.createPerson(library.returnNames().get(i),
+                    library.returnSurnames().get((int) (Math.random() * 30))+"à");
+        } else {
+            student = factory.createPerson(library.returnNames().get(i),
+                    library.returnSurnames().get((int) (Math.random() * 30)));
+        }
         users.add(new DefaultMutableTreeNode(student.getFirstName() + " " + student.getLastName()));
         model = (DefaultTreeModel) Tree.getModel();
         model.setRoot(users);

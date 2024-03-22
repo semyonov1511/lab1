@@ -40,6 +40,7 @@ public class Library {
             String text = new String(data);
             String[] lines = text.split("\n");
             for (int i = 0; i < 30; i++) {
+                lines[i] = lines[i].substring(0, lines[i].length() - 1);
                 names.add(lines[i]);
             }
         } catch (FileNotFoundException e) {
@@ -68,9 +69,11 @@ public class Library {
             fis.read(data);
             String text = new String(data);
             String[] lines = text.split("\n");
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < 29; i++) {
+                lines[i] = lines[i].substring(0, lines[i].length() - 1);
                 surnames.add(lines[i]);
             }
+            surnames.add(lines[29]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
