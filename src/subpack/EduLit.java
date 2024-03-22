@@ -10,14 +10,15 @@ package subpack;
  */
 public class EduLit extends Literature{
     
-    String university;
-    String subject;
-    String author;
+    public String subject;
     
-    public EduLit(String name, String subject, String language, String level, String author, String university) {
+    public EduLit(String name, String subject, String language) {
         super(name, language);
-        this.university = university;
         this.subject = subject;
-        this.author = author;
+    }
+    
+    @Override
+    public String getName() {
+        return this.name;
     }
 }

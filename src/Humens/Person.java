@@ -8,8 +8,6 @@ public abstract class Person {
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        System.out.println(firstName);
-        System.out.println(firstName.length());
     }
 
     public String getFirstName() {

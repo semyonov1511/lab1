@@ -8,6 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import Humens.*;
 import Rooms.*;
+import subpack.*;
 
 /**
  *
@@ -18,10 +19,12 @@ public class GUI extends javax.swing.JFrame {
     Library library = new Library();
 
     DefaultTreeModel model;
-    PersonFactory factory = new PersonFactory();
+    PersonFactory Pfactory = new PersonFactory();
+    EduLitFactory Efactory = new EduLitFactory();
 
     public GUI() {
         library.generatePeople();
+        library.generateRuBooks();
         initComponents();
     }
 
@@ -54,10 +57,10 @@ public class GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -73,16 +76,30 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-        int i = (int) (Math.random() * 30);
         Person student;
+        Literature book;
+        
+        int i = (int) (Math.random() * 30);
         if (i >= 20) {
-            student = factory.createPerson(library.returnNames().get(i),
+            student = Pfactory.createPerson(library.returnNames().get(i),
                     library.returnSurnames().get((int) (Math.random() * 30))+"а");
         } else {
-            student = factory.createPerson(library.returnNames().get(i),
+            student = Pfactory.createPerson(library.returnNames().get(i),
                     library.returnSurnames().get((int) (Math.random() * 30)));
         }
-        users.add(new DefaultMutableTreeNode(student.getFirstName() + " " + student.getLastName()));
+        
+        i = (int) (Math.random() * 11);
+        int a = (int) (Math.random() * 3);
+        if (i%2==0){
+            book = Efactory.createBook("Учебник", library.returnRuDisciplines().get(i), "русский", library.returnTypes()[a]);
+        }
+        else {
+            book = Efactory.createBook("Учебник", library.returnRuDisciplines().get(i), "русский", library.returnTypes()[a]);
+        }
+        
+        DefaultMutableTreeNode concreteStudent = new DefaultMutableTreeNode(student.getFirstName() + " " + student.getLastName());
+        concreteStudent.add(new DefaultMutableTreeNode(book.getName()));
+        users.add(concreteStudent);
         model = (DefaultTreeModel) Tree.getModel();
         model.setRoot(users);
         Tree.setModel(model);

@@ -16,4 +16,9 @@ public abstract class Literature {
         this.name = name;
         this.language = language;
     }
+    
+    public String getName() {
+        return this.name;
+    }
+    
 }
