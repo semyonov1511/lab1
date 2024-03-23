@@ -18,13 +18,8 @@ public class GUI extends javax.swing.JFrame {
 
     Library library = new Library();
     Archive archive = new Archive();
-    Accountant accountant = new Accountant();
-    FicLitBuilder RuBuilder = new RuFicLitBuilder();
-    FicLitBuilder EnBuilder = new EnFicLitBuilder();
     
     DefaultTreeModel model;
-    PersonFactory Pfactory = new PersonFactory();
-    EduLitFactory Efactory = new EduLitFactory();
 
     public GUI() {
         library.generatePeople();
@@ -80,45 +75,17 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-        Person student;
-        Literature book;
         
-        int i = (int) (Math.random() * 30);
-        if (i >= 20) {
-            student = Pfactory.createPerson(library.returnNames().get(i),
-                    library.returnSurnames().get((int) (Math.random() * 30))+"а");
-        } else {
-            student = Pfactory.createPerson(library.returnNames().get(i),
-                    library.returnSurnames().get((int) (Math.random() * 30)));
-        }
+        Person student = library.randomUser();
+        Literature book;
         
         DefaultMutableTreeNode concreteStudent = new DefaultMutableTreeNode(student.getFirstName() + " " + student.getLastName());
         
-        i = (int) (Math.random() * 11);
-        int a = (int) (Math.random() * 3);
-        if (i%2==0){
-            book = Efactory.createBook("Учебник", archive.returnRuDisciplines().get(i), "русский", archive.returnTypes()[a]);
+        int a = (int) (Math.random() * 8)+3;
+        for (int i = 0; i<a; i++){
+            book = archive.randomBook();
+            concreteStudent.add(new DefaultMutableTreeNode(book.getName()));
         }
-        else {
-            book = Efactory.createBook("Учебник", archive.returnEnDisciplines().get(i), "русский", archive.returnLevels()[a],
-                    archive.returnAuthors().get(i),archive.returnUniversities().get(i));
-        }
-       
-        accountant.setBuilder(RuBuilder);
-        
-        accountant.constructBook();
-        
-        concreteStudent.add(new DefaultMutableTreeNode(accountant.getBook().getName()));
-        
-        accountant.setBuilder(EnBuilder);
-        
-        accountant.constructBook();
-        
-        concreteStudent.add(new DefaultMutableTreeNode(accountant.getBook().getName()));
-        
-        concreteStudent.add(new DefaultMutableTreeNode(book.getName()));
-        
-        
         
         users.add(concreteStudent);
         model = (DefaultTreeModel) Tree.getModel();

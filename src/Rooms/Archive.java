@@ -1,5 +1,10 @@
 package Rooms;
 
+import FicLit.Accountant;
+import FicLit.EnFicLitBuilder;
+import FicLit.FicLitBuilder;
+import FicLit.RuFicLitBuilder;
+import Humens.Person;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,6 +12,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import javax.swing.tree.DefaultMutableTreeNode;
+import subpack.*;
 
 public class Archive {
 
@@ -16,12 +23,44 @@ public class Archive {
     String[] levels = {"Бакалавриат", "Магистратура", "Аспирантура"};
     ArrayList<String> universities;
     ArrayList<String> authors;
+    EduLitFactory Efactory = new EduLitFactory();
+    Accountant accountant = new Accountant();
+    FicLitBuilder RuBuilder = new RuFicLitBuilder();
+    FicLitBuilder EnBuilder = new EnFicLitBuilder();
 
     public void generateBooks() {
         this.RuDisciplines = setRuDisciplines();
         this.EnDisciplines = setEnDisciplines();
         this.authors = setAuthors();
         this.universities = setUniversities();
+    }
+
+    public Literature randomBook() {
+        int i = (int) (Math.random() * 11);
+        int a = (int) (Math.random() * 4);
+        int b = (int) (Math.random() * 3);
+        switch (a) {
+            case 0 -> {
+                return Efactory.createBook("Учебник", returnRuDisciplines().get(i), "русский", returnTypes()[b]);
+            }
+            case 1 -> {
+                return Efactory.createBook("Учебник", returnEnDisciplines().get(i), "english", returnLevels()[b],
+                        returnAuthors().get(i), returnUniversities().get(i));
+            }
+            case 2 -> {
+                accountant.setBuilder(RuBuilder);
+                accountant.constructBook();
+                return accountant.getBook();
+            }
+            case 3 -> {
+                accountant.setBuilder(EnBuilder);
+                accountant.constructBook();
+                return accountant.getBook();
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
     public String[] returnTypes() {
