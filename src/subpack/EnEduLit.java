@@ -19,6 +19,7 @@ public class EnEduLit extends EduLit{
         this.level = level;
         this.university = university;
         this.author = author;
+        this.name = this.name + " по дисциплине " + this.subject + ", уровень - " + this.level + ", автор - " + this.author + ", университет - " + this.university;
     }
     
 }

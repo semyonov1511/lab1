@@ -13,10 +13,15 @@ public class Library {
     ArrayList<String> names;
     ArrayList<String> surnames;
     ArrayList<String> RuDisciplines;
+    ArrayList<String> EnDisciplines;
     String[] types = {"Учебник", "Пособие", "Задачник"};
+    String[] levels = {"Бакалавриат", "Магистратура","Аспирантура"};
     
     public void generateRuBooks(){
         this.RuDisciplines = setRuDisciplines();
+    }
+    public void generateEnBooks(){
+        this.EnDisciplines = setEnDisciplines();
     }
     public void generatePeople(){
         this.names = setNames();
@@ -35,15 +40,21 @@ public class Library {
         return this.types;
     }
     
+    public String[] returnLevels(){
+        return this.levels;
+    }
+    
     public ArrayList<String> returnRuDisciplines(){
         return this.RuDisciplines;
     }
     
+    public ArrayList<String> returnEnDisciplines(){
+        return this.EnDisciplines;
+    }
+    
     public static ArrayList<String> setRuDisciplines(){
-        int b = 0;
-        ArrayList<String> RuDisciplines = new ArrayList<String>();
+        ArrayList<String> RuDisciplines = new ArrayList<>();
         FileInputStream fis = null;
-        InputStreamReader isr = null;
         try {
             fis = new FileInputStream("G:\\Документы\\RuDisciplines.csv");
             int length = fis.available();
@@ -52,9 +63,10 @@ public class Library {
             String text = new String(data);
             String[] lines = text.split("\n");
             for (int i = 0; i < 10; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length() - 1);
+                lines[i] = lines[i].substring(0, lines[i].length()-6);
                 RuDisciplines.add(lines[i]);
             }
+            lines[10] = lines[10].substring(0, lines[10].length()-6);
             RuDisciplines.add(lines[10]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -67,15 +79,44 @@ public class Library {
                 e.printStackTrace();
             }
         }
-        System.out.println("мудак блятьь");
         return RuDisciplines;
     }
     
-    public static ArrayList<String> setNames(){
-        int b = 0;
-        ArrayList<String> names = new ArrayList<String>();
+    public static ArrayList<String> setEnDisciplines(){
+        ArrayList<String> EnDisciplines = new ArrayList<>();
         FileInputStream fis = null;
-        InputStreamReader isr = null;
+        try {
+            fis = new FileInputStream("G:\\Документы\\EnDisciplines.csv");
+            int length = fis.available();
+            byte[] data = new byte[length];
+            fis.read(data);
+            String text = new String(data);
+            String[] lines = text.split("\n");
+            for (int i = 0; i < 10; i++) {
+                lines[i] = lines[i].substring(0, lines[i].length()-1);
+                EnDisciplines.add(lines[i]);
+            }
+            lines[10] = lines[10].substring(0, lines[10].length()-1);
+            EnDisciplines.add(lines[9]);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return EnDisciplines;
+    }
+    
+    
+    
+    public static ArrayList<String> setNames(){
+        ArrayList<String> names = new ArrayList<>();
+        FileInputStream fis = null;
         try {
             fis = new FileInputStream("G:\\Документы\\names1.csv");
             int length = fis.available();
@@ -103,10 +144,8 @@ public class Library {
     }
     
     public static ArrayList<String> setSurnames(){
-        int b = 0;
-        ArrayList<String> surnames = new ArrayList<String>();
+        ArrayList<String> surnames = new ArrayList<>();
         FileInputStream fis = null;
-        InputStreamReader isr = null;
         try {
             fis = new FileInputStream("G:\\Документы\\surnames.csv");
             int length = fis.available();
