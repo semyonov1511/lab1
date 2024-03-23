@@ -25,10 +25,7 @@ public class GUI extends javax.swing.JFrame {
 
     public GUI() {
         library.generatePeople();
-        archive.generateRuBooks();
-        archive.generateEnBooks();
-        archive.generateAuthors();
-        archive.generateUniversities();
+        archive.generateBooks();
         initComponents();
     }
 

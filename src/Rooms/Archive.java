@@ -1,4 +1,3 @@
-
 package Rooms;
 
 import java.io.BufferedReader;
@@ -9,52 +8,47 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class Archive { 
+public class Archive {
+
     ArrayList<String> RuDisciplines;
     ArrayList<String> EnDisciplines;
     String[] types = {"Учебник", "Пособие", "Задачник"};
-    String[] levels = {"Бакалавриат", "Магистратура","Аспирантура"};
+    String[] levels = {"Бакалавриат", "Магистратура", "Аспирантура"};
     ArrayList<String> universities;
     ArrayList<String> authors;
-    
-    public void generateRuBooks(){
+
+    public void generateBooks() {
         this.RuDisciplines = setRuDisciplines();
-    }
-    public void generateEnBooks(){
         this.EnDisciplines = setEnDisciplines();
-    }
-    public void generateAuthors(){
         this.authors = setAuthors();
-    }
-    public void generateUniversities(){
         this.universities = setUniversities();
     }
-    
-    public String[] returnTypes(){
+
+    public String[] returnTypes() {
         return this.types;
     }
-    
-    public String[] returnLevels(){
+
+    public String[] returnLevels() {
         return this.levels;
     }
-    
-    public ArrayList<String> returnRuDisciplines(){
+
+    public ArrayList<String> returnRuDisciplines() {
         return this.RuDisciplines;
     }
-    
-    public ArrayList<String> returnEnDisciplines(){
+
+    public ArrayList<String> returnEnDisciplines() {
         return this.EnDisciplines;
     }
-    
-    public ArrayList<String> returnAuthors(){
+
+    public ArrayList<String> returnAuthors() {
         return this.authors;
     }
-    
-    public ArrayList<String> returnUniversities(){
+
+    public ArrayList<String> returnUniversities() {
         return this.universities;
     }
-    
-    public static ArrayList<String> setRuDisciplines(){
+
+    public static ArrayList<String> setRuDisciplines() {
         ArrayList<String> RuDisciplines = new ArrayList<>();
         FileInputStream fis = null;
         try {
@@ -65,10 +59,10 @@ public class Archive {
             String text = new String(data);
             String[] lines = text.split("\n");
             for (int i = 0; i < 10; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length()-6);
+                lines[i] = lines[i].substring(0, lines[i].length() - 6);
                 RuDisciplines.add(lines[i]);
             }
-            lines[10] = lines[10].substring(0, lines[10].length()-6);
+            lines[10] = lines[10].substring(0, lines[10].length() - 6);
             RuDisciplines.add(lines[10]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -83,8 +77,8 @@ public class Archive {
         }
         return RuDisciplines;
     }
-    
-    public static ArrayList<String> setEnDisciplines(){
+
+    public static ArrayList<String> setEnDisciplines() {
         ArrayList<String> EnDisciplines = new ArrayList<>();
         FileInputStream fis = null;
         try {
@@ -95,7 +89,7 @@ public class Archive {
             String text = new String(data);
             String[] lines = text.split("\n");
             for (int i = 0; i <= 10; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length()-1);
+                lines[i] = lines[i].substring(0, lines[i].length() - 1);
                 EnDisciplines.add(lines[i]);
             }
         } catch (FileNotFoundException e) {
@@ -111,7 +105,8 @@ public class Archive {
         }
         return EnDisciplines;
     }
-    public static ArrayList<String> setAuthors(){
+
+    public static ArrayList<String> setAuthors() {
         ArrayList<String> Authors = new ArrayList<>();
         FileInputStream fis = null;
         try {
@@ -122,8 +117,8 @@ public class Archive {
             String text = new String(data);
             String[] lines = text.split("\n");
             for (int i = 0; i <= 10; i++) {
-                lines[i+11] = lines[i+11].substring(0, lines[i+11].length()-1);
-                Authors.add(lines[i+11]);
+                lines[i + 11] = lines[i + 11].substring(0, lines[i + 11].length() - 1);
+                Authors.add(lines[i + 11]);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -138,7 +133,8 @@ public class Archive {
         }
         return Authors;
     }
-    public static ArrayList<String> setUniversities(){
+
+    public static ArrayList<String> setUniversities() {
         ArrayList<String> universities = new ArrayList<>();
         FileInputStream fis = null;
         try {
@@ -149,11 +145,11 @@ public class Archive {
             String text = new String(data);
             String[] lines = text.split("\n");
             for (int i = 0; i < 10; i++) {
-                lines[i+22] = lines[i+22].substring(0, lines[i+22].length()-1);
-                universities.add(lines[i+22]);
+                lines[i + 22] = lines[i + 22].substring(0, lines[i + 22].length() - 1);
+                universities.add(lines[i + 22]);
             }
-            lines[10+22] = lines[10+22].substring(0, lines[10+22].length()-1);
-            universities.add(lines[10+22]);
+            lines[10 + 22] = lines[10 + 22].substring(0, lines[10 + 22].length() - 1);
+            universities.add(lines[10 + 22]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -168,5 +164,3 @@ public class Archive {
         return universities;
     }
 }
-
-    
