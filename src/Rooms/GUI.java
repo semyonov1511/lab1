@@ -17,6 +17,7 @@ import subpack.*;
 public class GUI extends javax.swing.JFrame {
 
     Library library = new Library();
+    Archive archive = new Archive();
 
     DefaultTreeModel model;
     PersonFactory Pfactory = new PersonFactory();
@@ -24,8 +25,10 @@ public class GUI extends javax.swing.JFrame {
 
     public GUI() {
         library.generatePeople();
-        library.generateRuBooks();
-        library.generateEnBooks();
+        archive.generateRuBooks();
+        archive.generateEnBooks();
+        archive.generateAuthors();
+        archive.generateUniversities();
         initComponents();
     }
 
@@ -92,11 +95,11 @@ public class GUI extends javax.swing.JFrame {
         i = (int) (Math.random() * 11);
         int a = (int) (Math.random() * 3);
         if (i%2==0){
-            book = Efactory.createBook("Учебник", library.returnRuDisciplines().get(i), "русский", library.returnTypes()[a]);
+            book = Efactory.createBook("Учебник", archive.returnRuDisciplines().get(i), "русский", archive.returnTypes()[a]);
         }
         else {
-            book = Efactory.createBook("Учебник", library.returnEnDisciplines().get(i), "русский", library.returnLevels()[a],
-                    "Имя Фамилия","Университет");
+            book = Efactory.createBook("Учебник", archive.returnEnDisciplines().get(i), "русский", archive.returnLevels()[a],
+                    archive.returnAuthors().get(i),archive.returnUniversities().get(i));
             
         }
         

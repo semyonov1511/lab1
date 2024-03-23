@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class Library { 
-    ArrayList<String> names;
-    ArrayList<String> surnames;
+public class Archive { 
     ArrayList<String> RuDisciplines;
     ArrayList<String> EnDisciplines;
     String[] types = {"Учебник", "Пособие", "Задачник"};
     String[] levels = {"Бакалавриат", "Магистратура","Аспирантура"};
+    ArrayList<String> universities;
+    ArrayList<String> authors;
     
     public void generateRuBooks(){
         this.RuDisciplines = setRuDisciplines();
@@ -23,17 +23,11 @@ public class Library {
     public void generateEnBooks(){
         this.EnDisciplines = setEnDisciplines();
     }
-    public void generatePeople(){
-        this.names = setNames();
-        this.surnames = setSurnames();
+    public void generateAuthors(){
+        this.authors = setAuthors();
     }
-    
-    public ArrayList<String> returnNames(){
-        return this.names;
-    }
-    
-    public ArrayList<String> returnSurnames(){
-        return this.surnames;
+    public void generateUniversities(){
+        this.universities = setUniversities();
     }
     
     public String[] returnTypes(){
@@ -50,6 +44,14 @@ public class Library {
     
     public ArrayList<String> returnEnDisciplines(){
         return this.EnDisciplines;
+    }
+    
+    public ArrayList<String> returnAuthors(){
+        return this.authors;
+    }
+    
+    public ArrayList<String> returnUniversities(){
+        return this.universities;
     }
     
     public static ArrayList<String> setRuDisciplines(){
@@ -109,24 +111,20 @@ public class Library {
         }
         return EnDisciplines;
     }
-    
-    
-    
-    public static ArrayList<String> setNames(){
-        ArrayList<String> names = new ArrayList<>();
+    public static ArrayList<String> setAuthors(){
+        ArrayList<String> Authors = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\names1.csv");
+            fis = new FileInputStream("G:\\Документы\\EnDisciplines.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
             String text = new String(data);
             String[] lines = text.split("\n");
-            for (int i = 0; i < 29; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length() - 1);
-                names.add(lines[i]);
+            for (int i = 0; i <= 10; i++) {
+                lines[i+11] = lines[i+11].substring(0, lines[i+11].length()-1);
+                Authors.add(lines[i+11]);
             }
-            names.add(lines[29]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -138,24 +136,24 @@ public class Library {
                 e.printStackTrace();
             }
         }
-        return names;
+        return Authors;
     }
-    
-    public static ArrayList<String> setSurnames(){
-        ArrayList<String> surnames = new ArrayList<>();
+    public static ArrayList<String> setUniversities(){
+        ArrayList<String> universities = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\surnames.csv");
+            fis = new FileInputStream("G:\\Документы\\EnDisciplines.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
             String text = new String(data);
             String[] lines = text.split("\n");
-            for (int i = 0; i < 29; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length() - 1);
-                surnames.add(lines[i]);
+            for (int i = 0; i < 10; i++) {
+                lines[i+22] = lines[i+22].substring(0, lines[i+22].length()-1);
+                universities.add(lines[i+22]);
             }
-            surnames.add(lines[29]);
+            lines[10+22] = lines[10+22].substring(0, lines[10+22].length()-1);
+            universities.add(lines[10+22]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -167,7 +165,8 @@ public class Library {
                 e.printStackTrace();
             }
         }
-        return surnames;
+        return universities;
     }
-     
 }
+
+    
