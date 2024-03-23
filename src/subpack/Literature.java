@@ -9,10 +9,10 @@ package subpack;
  * @author semyo
  */
 public abstract class Literature {
-    String name;
-    String language;
+    public String name;
+    public String language;
     
-    Literature(String name, String language){
+    public Literature(String name, String language){
         this.name = name;
         this.language = language;
     }

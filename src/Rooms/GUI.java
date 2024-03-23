@@ -4,10 +4,10 @@
  */
 package Rooms;
 
+import FicLit.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import Humens.*;
-import Rooms.*;
 import subpack.*;
 
 /**
@@ -18,7 +18,10 @@ public class GUI extends javax.swing.JFrame {
 
     Library library = new Library();
     Archive archive = new Archive();
-
+    Accountant accountant = new Accountant();
+    FicLitBuilder RuBuilder = new RuFicLitBuilder();
+    FicLitBuilder EnBuilder = new EnFicLitBuilder();
+    
     DefaultTreeModel model;
     PersonFactory Pfactory = new PersonFactory();
     EduLitFactory Efactory = new EduLitFactory();
@@ -60,8 +63,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,6 +92,8 @@ public class GUI extends javax.swing.JFrame {
                     library.returnSurnames().get((int) (Math.random() * 30)));
         }
         
+        DefaultMutableTreeNode concreteStudent = new DefaultMutableTreeNode(student.getFirstName() + " " + student.getLastName());
+        
         i = (int) (Math.random() * 11);
         int a = (int) (Math.random() * 3);
         if (i%2==0){
@@ -97,11 +102,24 @@ public class GUI extends javax.swing.JFrame {
         else {
             book = Efactory.createBook("Учебник", archive.returnEnDisciplines().get(i), "русский", archive.returnLevels()[a],
                     archive.returnAuthors().get(i),archive.returnUniversities().get(i));
-            
         }
+       
+        accountant.setBuilder(RuBuilder);
         
-        DefaultMutableTreeNode concreteStudent = new DefaultMutableTreeNode(student.getFirstName() + " " + student.getLastName());
+        accountant.constructBook();
+        
+        concreteStudent.add(new DefaultMutableTreeNode(accountant.getBook().getName()));
+        
+        accountant.setBuilder(EnBuilder);
+        
+        accountant.constructBook();
+        
+        concreteStudent.add(new DefaultMutableTreeNode(accountant.getBook().getName()));
+        
         concreteStudent.add(new DefaultMutableTreeNode(book.getName()));
+        
+        
+        
         users.add(concreteStudent);
         model = (DefaultTreeModel) Tree.getModel();
         model.setRoot(users);
