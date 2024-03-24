@@ -1,10 +1,6 @@
 
 package Humens;
 
-import Humens.Teacher;
-import Humens.Student;
-
-
 public class PersonFactory {
     public Person createPerson(String firstName, String lastName){
         return new Student(firstName,lastName);
