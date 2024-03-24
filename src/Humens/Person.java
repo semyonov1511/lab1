@@ -10,11 +10,5 @@ public abstract class Person {
         this.lastName = lastName;
     }
 
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
+    public abstract String getFullName();
 }

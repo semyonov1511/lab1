@@ -71,7 +71,7 @@ public class GUI extends javax.swing.JFrame {
         Person student = library.randomUser();
         Literature book;
         
-        DefaultMutableTreeNode concreteStudent = new DefaultMutableTreeNode(student.getFirstName() + " " + student.getLastName());
+        DefaultMutableTreeNode concreteStudent = new DefaultMutableTreeNode(student.getFullName());
         
         int a = (int) (Math.random() * 8)+3;
         for (int i = 0; i<a; i++){
