@@ -79,7 +79,7 @@ public class Archive {
     }
     
     public static String[] returnEnFicList() {
-        String[] list = {"Le Petit Prince", "1984", "Harry Potter","The Picture of Dorian Gray", "Drei Kameraden", "Alice in Wonderland","Мертвые души",
+        String[] list = {"Le Petit Prince", "1984", "Harry Potter","The Picture of Dorian Gray", "Drei Kameraden", "Alice in Wonderland","Fahrenheit 451",
                          "Les trois mousquetaires", "Romeo and Juliet", "The Old Man and the Sea"};
         return list;
     }
