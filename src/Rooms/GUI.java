@@ -1,16 +1,16 @@
-
 package Rooms;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import Humens.*;
+import java.util.ArrayList;
 import subpack.*;
 
 public class GUI extends javax.swing.JFrame {
 
     Library library = new Library();
     Archive archive = new Archive();
-    
+
     DefaultTreeModel model;
 
     public GUI() {
@@ -67,18 +67,25 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
+
+        ArrayList<Integer> randomRuEduNumbers = archive.setRandomList(11);
+        ArrayList<Integer> randomEnEduNumbers = archive.setRandomList(11);
+        ArrayList<Integer> randomRuFicNumbers = archive.setRandomList(10);
+        ArrayList<Integer> randomEnFicNumbers = archive.setRandomList(10);
         
         Person student = library.randomUser();
         Literature book;
-        
+
         DefaultMutableTreeNode concreteStudent = new DefaultMutableTreeNode(student.getFullName());
         
-        int a = (int) (Math.random() * 8)+3;
-        for (int i = 0; i<a; i++){
-            book = archive.randomBook();
+        int a = (int) (Math.random() * 8) + 3;
+        
+        for (int i = 0; i < a; i++) {
+            book = archive.randomBook(randomRuEduNumbers, randomEnEduNumbers,
+                                      randomRuFicNumbers, randomEnFicNumbers,i);
             concreteStudent.add(new DefaultMutableTreeNode(book.getName()));
         }
-        
+
         users.add(concreteStudent);
         model = (DefaultTreeModel) Tree.getModel();
         model.setRoot(users);
@@ -107,7 +114,7 @@ public class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         java.awt.EventQueue.invokeLater(() -> {
             new GUI().setVisible(true);
         });

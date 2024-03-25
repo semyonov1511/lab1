@@ -1,4 +1,3 @@
-
 package Rooms;
 
 import Humens.*;
@@ -7,47 +6,66 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Library { 
+public class Library {
+
     ArrayList<String> names;
     ArrayList<String> surnames;
     ArrayList<String> midnamesF;
     ArrayList<String> midnamesM;
     PersonFactory Pfactory = new PersonFactory();
-    
-    public Person randomUser(){
+
+    public Person randomUser() {
         int i = (int) (Math.random() * 30);
-        if (i >= 20) {
-            return Pfactory.createPerson(returnNames().get(i),
-                    returnSurnames().get((int) (Math.random() * 30))+"à",returnMidnamesF().get((int)(Math.random()*20)));
-        } else {
-            return Pfactory.createPerson(returnNames().get(i),
-                    returnSurnames().get((int) (Math.random() * 30)),returnMidnamesM().get((int)(Math.random()*20)));
+        int a = (int) (Math.random() * 2);
+        switch (a) {
+            case 0 -> {
+                if (i >= 20) {
+                    return Pfactory.createPerson(returnNames().get(i),
+                            returnSurnames().get((int) (Math.random() * 30)) + "à");
+                } else {
+                    return Pfactory.createPerson(returnNames().get(i),
+                            returnSurnames().get((int) (Math.random() * 30)));
+                }
+            }
+            case 1 -> {
+                if (i >= 20) {
+                    return Pfactory.createPerson(returnNames().get(i),
+                            returnSurnames().get((int) (Math.random() * 30)) + "à", returnMidnamesF().get((int) (Math.random() * 20)));
+                } else {
+                    return Pfactory.createPerson(returnNames().get(i),
+                            returnSurnames().get((int) (Math.random() * 30)), returnMidnamesM().get((int) (Math.random() * 20)));
+                }
+            }
+            default -> {
+                return null;
+            }
         }
     }
-    public void generatePeople(){
+
+    public void generatePeople() {
         this.names = setNames();
         this.surnames = setSurnames();
         this.midnamesM = setMidnames();
         this.midnamesF = setMidnames(true);
     }
-    
-    public ArrayList<String> returnNames(){
+
+    public ArrayList<String> returnNames() {
         return this.names;
     }
-    
-    public ArrayList<String> returnSurnames(){
+
+    public ArrayList<String> returnSurnames() {
         return this.surnames;
     }
-    
-    public ArrayList<String> returnMidnamesM(){
+
+    public ArrayList<String> returnMidnamesM() {
         return this.midnamesM;
     }
-    
-    public ArrayList<String> returnMidnamesF(){
+
+    public ArrayList<String> returnMidnamesF() {
         return this.midnamesF;
     }
 
-    public static ArrayList<String> setNames(){
+    public static ArrayList<String> setNames() {
         ArrayList<String> names = new ArrayList<>();
         FileInputStream fis = null;
         try {
@@ -75,8 +93,8 @@ public class Library {
         }
         return names;
     }
-    
-    public static ArrayList<String> setSurnames(){
+
+    public static ArrayList<String> setSurnames() {
         ArrayList<String> surnames = new ArrayList<>();
         FileInputStream fis = null;
         try {
@@ -103,8 +121,8 @@ public class Library {
         }
         return surnames;
     }
-    
-    public static ArrayList<String> setMidnames(){
+
+    public static ArrayList<String> setMidnames() {
         ArrayList<String> midnames = new ArrayList<>();
         FileInputStream fis = null;
         try {
@@ -115,8 +133,8 @@ public class Library {
             String text = new String(data);
             String[] lines = text.split("\n");
             for (int i = 0; i <= 19; i++) {
-                lines[i+30] = lines[i+30].substring(0, lines[i+30].length() - 1);
-                midnames.add(lines[i+30]);
+                lines[i + 30] = lines[i + 30].substring(0, lines[i + 30].length() - 1);
+                midnames.add(lines[i + 30]);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -131,8 +149,8 @@ public class Library {
         }
         return midnames;
     }
-    
-    public static ArrayList<String> setMidnames(boolean a){
+
+    public static ArrayList<String> setMidnames(boolean a) {
         ArrayList<String> midnames = new ArrayList<>();
         FileInputStream fis = null;
         try {
@@ -143,8 +161,8 @@ public class Library {
             String text = new String(data);
             String[] lines = text.split("\n");
             for (int i = 0; i < 19; i++) {
-                lines[i+50] = lines[i+50].substring(0, lines[i+50].length() - 1);
-                midnames.add(lines[i+50]);
+                lines[i + 50] = lines[i + 50].substring(0, lines[i + 50].length() - 1);
+                midnames.add(lines[i + 50]);
             }
             midnames.add(lines[69]);
         } catch (FileNotFoundException e) {
@@ -160,5 +178,5 @@ public class Library {
         }
         return midnames;
     }
-     
+
 }

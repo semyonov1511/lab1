@@ -13,9 +13,9 @@ public class Accountant {
         return Builder.getBook();
     }
     
-    public void constructBook(){
+    public void constructBook(String name){
         Builder.createNewBook();
-        Builder.buildName();
+        Builder.buildName(name);
         Builder.buildLanguage();
         Builder.buildGenre();
     }

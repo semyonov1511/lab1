@@ -4,8 +4,8 @@ package FicLit;
 public class RuFicLitBuilder extends FicLitBuilder {
 
     @Override
-    public void buildName() {
-        book.setName("Художественная литература");
+    public void buildName(String name) {
+        book.setName(name);
     }
 
     @Override
@@ -15,6 +15,6 @@ public class RuFicLitBuilder extends FicLitBuilder {
 
     @Override
     public void buildGenre() {
-        book.setGenre("Фантастика");
+        book.setGenre("Художественная литература");
     }
 }

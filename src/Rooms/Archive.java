@@ -1,4 +1,3 @@
-
 package Rooms;
 
 import FicLit.Accountant;
@@ -9,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import subpack.*;
 
 public class Archive {
@@ -31,26 +31,26 @@ public class Archive {
         this.universities = setUniversities();
     }
 
-    public Literature randomBook() {
-        int i = (int) (Math.random() * 11);
+    public Literature randomBook(ArrayList<Integer> randomRuEduNumbers, ArrayList<Integer> randomEnEduNumbers,
+                                 ArrayList<Integer> randomRuFicNumbers, ArrayList<Integer> randomEnFicNumbers, int i) {
         int a = (int) (Math.random() * 4);
         int b = (int) (Math.random() * 3);
         switch (a) {
             case 0 -> {
-                return Efactory.createBook("Учебник", returnRuDisciplines().get(i), "русский", returnTypes()[b]);
+                return Efactory.createBook("Учебник", returnRuDisciplines().get(randomRuEduNumbers.get(i)), "русский", returnTypes()[b]);
             }
             case 1 -> {
-                return Efactory.createBook("Учебник", returnEnDisciplines().get(i), "english", returnLevels()[b],
+                return Efactory.createBook("Учебник", returnEnDisciplines().get(randomEnEduNumbers.get(i)), "english", returnLevels()[b],
                         returnAuthors().get(i), returnUniversities().get(i));
             }
             case 2 -> {
                 accountant.setBuilder(RuBuilder);
-                accountant.constructBook();
+                accountant.constructBook(returnRuFicList()[randomRuFicNumbers.get(i)]);
                 return accountant.getBook();
             }
             case 3 -> {
                 accountant.setBuilder(EnBuilder);
-                accountant.constructBook();
+                accountant.constructBook(returnEnFicList()[randomEnFicNumbers.get(i)]);
                 return accountant.getBook();
             }
             default -> {
@@ -59,6 +59,31 @@ public class Archive {
         }
     }
 
+    public static ArrayList<Integer> setRandomList(int a) {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        Random r = new Random();
+        while (numbers.size() < 10) {
+
+            int random = r.nextInt(a);
+            if (!numbers.contains(random)) {
+                numbers.add(random);
+            }
+        }
+        return numbers;
+    }
+
+    public static String[] returnRuFicList() {
+        String[] list = {"Муму", "Преступление и наказание", "Мастер и Маргарита", "Обломов", "Война и мир", "Герой нашего времени", "Мертвые души",
+                        "Анна Каренина", "Горе от ума", "Собачье сердце"};
+        return list;
+    }
+    
+    public static String[] returnEnFicList() {
+        String[] list = {"Le Petit Prince", "1984", "Harry Potter","The Picture of Dorian Gray", "Drei Kameraden", "Alice in Wonderland","Мертвые души",
+                         "Les trois mousquetaires", "Romeo and Juliet", "The Old Man and the Sea"};
+        return list;
+    }
+    
     public String[] returnTypes() {
         return this.types;
     }

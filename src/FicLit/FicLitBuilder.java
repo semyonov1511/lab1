@@ -13,7 +13,7 @@ public abstract class FicLitBuilder {
         book = new FicLit("", "", "");
     }
     
-    public abstract void buildName();
+    public abstract void buildName(String name);
     public abstract void buildLanguage();
     public abstract void buildGenre();
     

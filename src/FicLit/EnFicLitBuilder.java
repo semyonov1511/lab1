@@ -1,11 +1,17 @@
 
 package FicLit;
 
+import Rooms.Archive;
+import java.util.ArrayList;
+
 public class EnFicLitBuilder extends FicLitBuilder {
+    
+    String[] EnFicList = Archive.returnEnFicList();
+    
 
     @Override
-    public void buildName() {
-        book.setName("Fiction Literature");
+    public void buildName(String name) {
+        book.setName(name);
     }
 
     @Override
@@ -15,7 +21,7 @@ public class EnFicLitBuilder extends FicLitBuilder {
 
     @Override
     public void buildGenre() {
-        book.setGenre("Fantasy");
+        book.setGenre("Fiction literature");
     }
     
 }
