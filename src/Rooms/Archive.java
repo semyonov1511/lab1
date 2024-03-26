@@ -17,6 +17,10 @@ public class Archive {
     ArrayList<String> EnDisciplines;
     String[] types = {"Учебник", "Пособие", "Задачник"};
     String[] levels = {"Бакалавриат", "Магистратура", "Аспирантура"};
+    String[] RuFicList = {"Муму", "Преступление и наказание", "Мастер и Маргарита", "Обломов", "Война и мир", "Герой нашего времени", "Мертвые души",
+        "Анна Каренина", "Горе от ума", "Собачье сердце"};
+    String[] EnFicList = {"Le Petit Prince", "1984", "Harry Potter", "The Picture of Dorian Gray", "Drei Kameraden", "Alice in Wonderland", "Fahrenheit 451",
+        "Les trois mousquetaires", "Romeo and Juliet", "The Old Man and the Sea"};
     ArrayList<String> universities;
     ArrayList<String> authors;
     EduLitFactory Efactory = new EduLitFactory();
@@ -31,35 +35,37 @@ public class Archive {
         this.universities = setUniversities();
     }
 
-    public Literature randomBook(ArrayList<Integer> randomRuEduNumbers, ArrayList<Integer> randomEnEduNumbers,
-                                 ArrayList<Integer> randomRuFicNumbers, ArrayList<Integer> randomEnFicNumbers, int i) {
-        int a = (int) (Math.random() * 4);
-        int b = (int) (Math.random() * 3);
-        switch (a) {
-            case 0 -> {
-                return Efactory.createBook("Учебник", returnRuDisciplines().get(randomRuEduNumbers.get(i)), "русский", returnTypes()[b]);
-            }
-            case 1 -> {
-                return Efactory.createBook("Учебник", returnEnDisciplines().get(randomEnEduNumbers.get(i)), "english", returnLevels()[b],
-                        returnAuthors().get(i), returnUniversities().get(i));
-            }
-            case 2 -> {
-                accountant.setBuilder(RuBuilder);
-                accountant.constructBook(returnRuFicList()[randomRuFicNumbers.get(i)]);
-                return accountant.getBook();
-            }
-            case 3 -> {
-                accountant.setBuilder(EnBuilder);
-                accountant.constructBook(returnEnFicList()[randomEnFicNumbers.get(i)]);
-                return accountant.getBook();
-            }
-            default -> {
-                return null;
-            }
-        }
+    public Literature randomBook(ArrayList<Integer> randomNumbers, int i) {
+        return setBookList().get(randomNumbers.get(i));
     }
 
-    public static ArrayList<Integer> setRandomList(int a) {
+    public ArrayList<Literature> setBookList() {
+        ArrayList<Literature> list = new ArrayList<>();
+        for (int i = 0; i < returnRuDisciplines().size(); i++) {
+            for (int j=0; j<types.length;j++){
+                list.add(Efactory.createBook("Учебник", returnRuDisciplines().get(i), "русский", returnTypes()[j]));
+            }
+        }
+        for (int i = 0; i < returnEnDisciplines().size(); i++) {
+            for (int j=0; j<levels.length;j++){
+                list.add(Efactory.createBook("Учебник", returnEnDisciplines().get(i), "english", returnLevels()[j],
+                        returnAuthors().get(i), returnUniversities().get(i)));
+            }
+        }
+        accountant.setBuilder(RuBuilder);
+        for (String returnRuFicList : returnRuFicList()) {
+            accountant.constructBook(returnRuFicList);
+            list.add(accountant.getBook());
+        }
+        accountant.setBuilder(EnBuilder);
+        for (String returnEnFicList : returnEnFicList()) {
+            accountant.constructBook(returnEnFicList);
+            list.add(accountant.getBook());
+        }
+        return list;
+    }
+
+    public ArrayList<Integer> setRandomList(int a) {
         ArrayList<Integer> numbers = new ArrayList<>();
         Random r = new Random();
         while (numbers.size() < 10) {
@@ -72,18 +78,14 @@ public class Archive {
         return numbers;
     }
 
-    public static String[] returnRuFicList() {
-        String[] list = {"Муму", "Преступление и наказание", "Мастер и Маргарита", "Обломов", "Война и мир", "Герой нашего времени", "Мертвые души",
-                        "Анна Каренина", "Горе от ума", "Собачье сердце"};
-        return list;
+    public String[] returnRuFicList() {
+        return RuFicList;
     }
-    
-    public static String[] returnEnFicList() {
-        String[] list = {"Le Petit Prince", "1984", "Harry Potter","The Picture of Dorian Gray", "Drei Kameraden", "Alice in Wonderland","Fahrenheit 451",
-                         "Les trois mousquetaires", "Romeo and Juliet", "The Old Man and the Sea"};
-        return list;
+
+    public String[] returnEnFicList() {
+        return EnFicList;
     }
-    
+
     public String[] returnTypes() {
         return this.types;
     }
@@ -117,12 +119,15 @@ public class Archive {
             byte[] data = new byte[length];
             fis.read(data);
             String text = new String(data);
-            String[] lines = text.split("\n");
+            String[] lines = text.split("\r\n");
             for (int i = 0; i < 10; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length() - 6);
+                lines[i] = lines[i].substring(0, lines[i].length() - 5);
+                if (i==8){
+                    lines[i] = lines[i].substring(0, lines[i].length() - 1);
+                }
                 RuDisciplines.add(lines[i]);
             }
-            lines[10] = lines[10].substring(0, lines[10].length() - 6);
+            lines[10] = lines[10].substring(0, lines[10].length() - 5);
             RuDisciplines.add(lines[10]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

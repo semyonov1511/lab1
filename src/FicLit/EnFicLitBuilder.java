@@ -5,9 +5,6 @@ import Rooms.Archive;
 import java.util.ArrayList;
 
 public class EnFicLitBuilder extends FicLitBuilder {
-    
-    String[] EnFicList = Archive.returnEnFicList();
-    
 
     @Override
     public void buildName(String name) {

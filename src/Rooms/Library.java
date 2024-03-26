@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public class Library {
 
     ArrayList<String> names;
-    ArrayList<String> surnames;
+    ArrayList<String> surnames1;
+    ArrayList<String> surnames2;
     ArrayList<String> midnamesF;
     ArrayList<String> midnamesM;
     PersonFactory Pfactory = new PersonFactory();
@@ -21,19 +22,19 @@ public class Library {
             case 0 -> {
                 if (i >= 20) {
                     return Pfactory.createPerson(returnNames().get(i),
-                            returnSurnames().get((int) (Math.random() * 30)) + "а");
+                            returnSurnames().get((int) (Math.random() * 60)) + "а");
                 } else {
                     return Pfactory.createPerson(returnNames().get(i),
-                            returnSurnames().get((int) (Math.random() * 30)));
+                            returnSurnames().get((int) (Math.random() * 60)));
                 }
             }
             case 1 -> {
                 if (i >= 20) {
                     return Pfactory.createPerson(returnNames().get(i),
-                            returnSurnames().get((int) (Math.random() * 30)) + "а", returnMidnamesF().get((int) (Math.random() * 20)));
+                            returnSurnames(true).get((int) (Math.random() * 14)) + "а", returnMidnamesF().get((int) (Math.random() * 20)));
                 } else {
                     return Pfactory.createPerson(returnNames().get(i),
-                            returnSurnames().get((int) (Math.random() * 30)), returnMidnamesM().get((int) (Math.random() * 20)));
+                            returnSurnames(true).get((int) (Math.random() * 14)), returnMidnamesM().get((int) (Math.random() * 20)));
                 }
             }
             default -> {
@@ -44,7 +45,8 @@ public class Library {
 
     public void generatePeople() {
         this.names = setNames();
-        this.surnames = setSurnames();
+        this.surnames1 = setSurnames();
+        this.surnames2 = setSurnames(true);
         this.midnamesM = setMidnames();
         this.midnamesF = setMidnames(true);
     }
@@ -54,7 +56,11 @@ public class Library {
     }
 
     public ArrayList<String> returnSurnames() {
-        return this.surnames;
+        return this.surnames1;
+    }
+    
+    public ArrayList<String> returnSurnames(boolean a) {
+        return this.surnames2;
     }
 
     public ArrayList<String> returnMidnamesM() {
@@ -104,7 +110,35 @@ public class Library {
             fis.read(data);
             String text = new String(data);
             String[] lines = text.split("\n");
-            for (int i = 0; i <= 29; i++) {
+            for (int i = 0; i <= 59; i++) {
+                lines[i] = lines[i].substring(0, lines[i].length() - 1);
+                surnames.add(lines[i]);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return surnames;
+    }
+
+    public static ArrayList<String> setSurnames(boolean a) {
+        ArrayList<String> surnames = new ArrayList<>();
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream("G:\\Документы\\surnames2.csv");
+            int length = fis.available();
+            byte[] data = new byte[length];
+            fis.read(data);
+            String text = new String(data);
+            String[] lines = text.split("\n");
+            for (int i = 0; i < 14 ; i++) {
                 lines[i] = lines[i].substring(0, lines[i].length() - 1);
                 surnames.add(lines[i]);
             }

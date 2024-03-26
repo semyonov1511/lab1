@@ -16,6 +16,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         library.generatePeople();
         archive.generateBooks();
+        archive.setBookList();
         initComponents();
     }
 
@@ -68,10 +69,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
 
-        ArrayList<Integer> randomRuEduNumbers = archive.setRandomList(11);
-        ArrayList<Integer> randomEnEduNumbers = archive.setRandomList(11);
-        ArrayList<Integer> randomRuFicNumbers = archive.setRandomList(10);
-        ArrayList<Integer> randomEnFicNumbers = archive.setRandomList(10);
+        ArrayList<Integer> randomNumbers = archive.setRandomList(86);
         
         Person student = library.randomUser();
         Literature book;
@@ -81,8 +79,7 @@ public class GUI extends javax.swing.JFrame {
         int a = (int) (Math.random() * 8) + 3;
         
         for (int i = 0; i < a; i++) {
-            book = archive.randomBook(randomRuEduNumbers, randomEnEduNumbers,
-                                      randomRuFicNumbers, randomEnFicNumbers,i);
+            book = archive.randomBook(randomNumbers,i);
             concreteStudent.add(new DefaultMutableTreeNode(book.getName()));
         }
 
