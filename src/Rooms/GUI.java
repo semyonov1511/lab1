@@ -70,20 +70,20 @@ public class GUI extends javax.swing.JFrame {
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
 
         ArrayList<Integer> randomNumbers = archive.setRandomList(86);
-        
-        Person student = library.randomUser();
+       
+        Person user = library.randomUser();
         Literature book;
 
-        DefaultMutableTreeNode concreteStudent = new DefaultMutableTreeNode(student.getFullName());
+        DefaultMutableTreeNode concreteUser = new DefaultMutableTreeNode(user.getFullName());
         
         int a = (int) (Math.random() * 8) + 3;
         
         for (int i = 0; i < a; i++) {
             book = archive.randomBook(randomNumbers,i);
-            concreteStudent.add(new DefaultMutableTreeNode(book.getName()));
+            concreteUser.add(new DefaultMutableTreeNode(book.getName()));
         }
 
-        users.add(concreteStudent);
+        users.add(concreteUser);
         model = (DefaultTreeModel) Tree.getModel();
         model.setRoot(users);
         Tree.setModel(model);

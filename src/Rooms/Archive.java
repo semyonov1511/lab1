@@ -23,6 +23,7 @@ public class Archive {
         "Les trois mousquetaires", "Romeo and Juliet", "The Old Man and the Sea"};
     ArrayList<String> universities;
     ArrayList<String> authors;
+    ArrayList<Literature> list;
     EduLitFactory Efactory = new EduLitFactory();
     Accountant accountant = new Accountant();
     FicLitBuilder RuBuilder = new RuFicLitBuilder();
@@ -33,10 +34,11 @@ public class Archive {
         this.EnDisciplines = setEnDisciplines();
         this.authors = setAuthors();
         this.universities = setUniversities();
+        this.list = setBookList();
     }
 
     public Literature randomBook(ArrayList<Integer> randomNumbers, int i) {
-        return setBookList().get(randomNumbers.get(i));
+        return list.get(randomNumbers.get(i));
     }
 
     public ArrayList<Literature> setBookList() {
@@ -114,7 +116,7 @@ public class Archive {
         ArrayList<String> RuDisciplines = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\RuDisciplines.csv");
+            fis = new FileInputStream("RuDisciplines.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
@@ -147,7 +149,7 @@ public class Archive {
         ArrayList<String> EnDisciplines = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\EnDisciplines.csv");
+            fis = new FileInputStream("EnDisciplines.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
@@ -175,7 +177,7 @@ public class Archive {
         ArrayList<String> Authors = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\EnDisciplines.csv");
+            fis = new FileInputStream("EnDisciplines.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
@@ -203,7 +205,7 @@ public class Archive {
         ArrayList<String> universities = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\EnDisciplines.csv");
+            fis = new FileInputStream("EnDisciplines.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);

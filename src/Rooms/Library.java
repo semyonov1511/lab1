@@ -75,7 +75,7 @@ public class Library {
         ArrayList<String> names = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\names1.csv");
+            fis = new FileInputStream("names1.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
@@ -104,7 +104,7 @@ public class Library {
         ArrayList<String> surnames = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\surnames.csv");
+            fis = new FileInputStream("surnames.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
@@ -132,7 +132,7 @@ public class Library {
         ArrayList<String> surnames = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\surnames2.csv");
+            fis = new FileInputStream("surnames2.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
@@ -160,7 +160,7 @@ public class Library {
         ArrayList<String> midnames = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\names1.csv");
+            fis = new FileInputStream("names1.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
@@ -188,7 +188,7 @@ public class Library {
         ArrayList<String> midnames = new ArrayList<>();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("G:\\Документы\\names1.csv");
+            fis = new FileInputStream("names1.csv");
             int length = fis.available();
             byte[] data = new byte[length];
             fis.read(data);
