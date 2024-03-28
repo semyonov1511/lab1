@@ -4,11 +4,7 @@ import FicLit.Accountant;
 import FicLit.EnFicLitBuilder;
 import FicLit.FicLitBuilder;
 import FicLit.RuFicLitBuilder;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import subpack.*;
 
@@ -32,6 +28,15 @@ public class Archive {
     FicLitBuilder RuBuilder = new RuFicLitBuilder();
     FicLitBuilder EnBuilder = new EnFicLitBuilder();
 
+    private static Archive INSTANCE;
+    
+    public static Archive getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Archive();
+        }
+        return INSTANCE;
+    }
+    
     public void generateBooks() {
         this.list = setBookList();
     }
@@ -42,8 +47,6 @@ public class Archive {
 
     public ArrayList<Literature> setBookList() {
         ArrayList<Literature> list = new ArrayList<>();
-        System.out.println("dlina " + En.size());
-
         for (int i = 0; i < RuDisciplines.size(); i++) {
             for (int j = 0; j < types.length; j++) {
                 list.add(Efactory.createBook("Учебник", RuDisciplines.get(i)[0], "русский", types[j]));
@@ -65,7 +68,6 @@ public class Archive {
             accountant.constructBook(returnEnFicList);
             list.add(accountant.getBook());
         }
-        System.out.println(list.size());
         return list;
     }
 
