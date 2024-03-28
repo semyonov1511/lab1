@@ -15,6 +15,8 @@ public abstract class FicLitBuilder {
     
     public abstract void buildName(String name);
     public abstract void buildLanguage();
-    public abstract void buildGenre();
+    public void buildGenre(){
+        book.setGenre("Художественная литература");
+    }
     
 }

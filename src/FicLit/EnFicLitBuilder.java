@@ -15,10 +15,5 @@ public class EnFicLitBuilder extends FicLitBuilder {
     public void buildLanguage() {
         book.setLanguage("English");
     }
-
-    @Override
-    public void buildGenre() {
-        book.setGenre("Fiction literature");
-    }
     
 }

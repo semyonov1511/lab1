@@ -12,9 +12,4 @@ public class RuFicLitBuilder extends FicLitBuilder {
     public void buildLanguage() {
         book.setLanguage("Русский");
     }
-
-    @Override
-    public void buildGenre() {
-        book.setGenre("Художественная литература");
-    }
 }

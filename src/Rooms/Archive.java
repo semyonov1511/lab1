@@ -8,21 +8,24 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import subpack.*;
 
 public class Archive {
 
-    ArrayList<String> RuDisciplines;
-    ArrayList<String> EnDisciplines;
+    ArrayList<String[]> RuDisciplines = CsvFileReader.readCsv("RuDisciplines.csv");
+    ArrayList<String[]> En = CsvFileReader.readCsv("EnDisciplines.csv");
+    String[] EnDisciplines = setList(En,"disciplines");
+    String[] authors = setList(En,"authors");
+    String[] universities = setList(En,"universities");
     String[] types = {"Учебник", "Пособие", "Задачник"};
     String[] levels = {"Бакалавриат", "Магистратура", "Аспирантура"};
     String[] RuFicList = {"Муму", "Преступление и наказание", "Мастер и Маргарита", "Обломов", "Война и мир", "Герой нашего времени", "Мертвые души",
         "Анна Каренина", "Горе от ума", "Собачье сердце"};
     String[] EnFicList = {"Le Petit Prince", "1984", "Harry Potter", "The Picture of Dorian Gray", "Drei Kameraden", "Alice in Wonderland", "Fahrenheit 451",
         "Les trois mousquetaires", "Romeo and Juliet", "The Old Man and the Sea"};
-    ArrayList<String> universities;
-    ArrayList<String> authors;
+    
     ArrayList<Literature> list;
     EduLitFactory Efactory = new EduLitFactory();
     Accountant accountant = new Accountant();
@@ -30,10 +33,6 @@ public class Archive {
     FicLitBuilder EnBuilder = new EnFicLitBuilder();
 
     public void generateBooks() {
-        this.RuDisciplines = setRuDisciplines();
-        this.EnDisciplines = setEnDisciplines();
-        this.authors = setAuthors();
-        this.universities = setUniversities();
         this.list = setBookList();
     }
 
@@ -43,27 +42,30 @@ public class Archive {
 
     public ArrayList<Literature> setBookList() {
         ArrayList<Literature> list = new ArrayList<>();
-        for (int i = 0; i < returnRuDisciplines().size(); i++) {
-            for (int j=0; j<types.length;j++){
-                list.add(Efactory.createBook("Учебник", returnRuDisciplines().get(i), "русский", returnTypes()[j]));
+        System.out.println("dlina " + En.size());
+
+        for (int i = 0; i < RuDisciplines.size(); i++) {
+            for (int j = 0; j < types.length; j++) {
+                list.add(Efactory.createBook("Учебник", RuDisciplines.get(i)[0], "русский", types[j]));
             }
         }
-        for (int i = 0; i < returnEnDisciplines().size(); i++) {
-            for (int j=0; j<levels.length;j++){
-                list.add(Efactory.createBook("Учебник", returnEnDisciplines().get(i), "english", returnLevels()[j],
-                        returnAuthors().get(i), returnUniversities().get(i)));
+        for (int i = 0; i < EnDisciplines.length; i++) {
+            for (int j = 0; j < levels.length; j++) {
+                list.add(Efactory.createBook("Учебник", EnDisciplines[i], "english", levels[j],
+                        authors[i], universities[i]));
             }
         }
         accountant.setBuilder(RuBuilder);
-        for (String returnRuFicList : returnRuFicList()) {
+        for (String returnRuFicList : RuFicList) {
             accountant.constructBook(returnRuFicList);
             list.add(accountant.getBook());
         }
         accountant.setBuilder(EnBuilder);
-        for (String returnEnFicList : returnEnFicList()) {
+        for (String returnEnFicList : EnFicList) {
             accountant.constructBook(returnEnFicList);
             list.add(accountant.getBook());
         }
+        System.out.println(list.size());
         return list;
     }
 
@@ -80,154 +82,31 @@ public class Archive {
         return numbers;
     }
 
-    public String[] returnRuFicList() {
-        return RuFicList;
-    }
-
-    public String[] returnEnFicList() {
-        return EnFicList;
-    }
-
-    public String[] returnTypes() {
-        return this.types;
-    }
-
-    public String[] returnLevels() {
-        return this.levels;
-    }
-
-    public ArrayList<String> returnRuDisciplines() {
-        return this.RuDisciplines;
-    }
-
-    public ArrayList<String> returnEnDisciplines() {
-        return this.EnDisciplines;
-    }
-
-    public ArrayList<String> returnAuthors() {
-        return this.authors;
-    }
-
-    public ArrayList<String> returnUniversities() {
-        return this.universities;
-    }
-
-    public static ArrayList<String> setRuDisciplines() {
-        ArrayList<String> RuDisciplines = new ArrayList<>();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("RuDisciplines.csv");
-            int length = fis.available();
-            byte[] data = new byte[length];
-            fis.read(data);
-            String text = new String(data);
-            String[] lines = text.split("\r\n");
-            for (int i = 0; i < 10; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length() - 5);
-                if (i==8){
-                    lines[i] = lines[i].substring(0, lines[i].length() - 1);
+    public String[] setList(ArrayList<String[]> En, String which) {
+        String[] list = new String[En.size()];
+        switch (which) {
+            case "disciplines" -> {
+                for (int i = 0; i < En.size(); i++) {
+                    list[i] = En.get(i)[0];
                 }
-                RuDisciplines.add(lines[i]);
+                return list;
             }
-            lines[10] = lines[10].substring(0, lines[10].length() - 5);
-            RuDisciplines.add(lines[10]);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            case "authors" -> {
+                for (int i = 0; i < En.size(); i++) {
+                    list[i] = En.get(i)[1];
+                }
+                return list;
+            }
+            case "universities" -> {
+                for (int i = 0; i < En.size(); i++) {
+                    list[i] = En.get(i)[2];
+                }
+                return list;
+            }
+            default -> {
+                return null;
             }
         }
-        return RuDisciplines;
     }
 
-    public static ArrayList<String> setEnDisciplines() {
-        ArrayList<String> EnDisciplines = new ArrayList<>();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("EnDisciplines.csv");
-            int length = fis.available();
-            byte[] data = new byte[length];
-            fis.read(data);
-            String text = new String(data);
-            String[] lines = text.split("\n");
-            for (int i = 0; i <= 10; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length() - 1);
-                EnDisciplines.add(lines[i]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return EnDisciplines;
-    }
-
-    public static ArrayList<String> setAuthors() {
-        ArrayList<String> Authors = new ArrayList<>();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("EnDisciplines.csv");
-            int length = fis.available();
-            byte[] data = new byte[length];
-            fis.read(data);
-            String text = new String(data);
-            String[] lines = text.split("\n");
-            for (int i = 0; i <= 10; i++) {
-                lines[i + 11] = lines[i + 11].substring(0, lines[i + 11].length() - 1);
-                Authors.add(lines[i + 11]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return Authors;
-    }
-
-    public static ArrayList<String> setUniversities() {
-        ArrayList<String> universities = new ArrayList<>();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("EnDisciplines.csv");
-            int length = fis.available();
-            byte[] data = new byte[length];
-            fis.read(data);
-            String text = new String(data);
-            String[] lines = text.split("\n");
-            for (int i = 0; i < 10; i++) {
-                lines[i + 22] = lines[i + 22].substring(0, lines[i + 22].length() - 1);
-                universities.add(lines[i + 22]);
-            }
-            lines[10 + 22] = lines[10 + 22].substring(0, lines[10 + 22].length() - 1);
-            universities.add(lines[10 + 22]);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return universities;
-    }
 }

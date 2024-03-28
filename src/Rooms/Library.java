@@ -8,34 +8,21 @@ import java.util.ArrayList;
 
 public class Library {
 
-    ArrayList<String> names;
-    ArrayList<String> surnames1;
-    ArrayList<String> surnames2;
-    ArrayList<String> midnamesF;
-    ArrayList<String> midnamesM;
-    PersonFactory Pfactory = new PersonFactory();
+    ArrayList<String[]> names = CsvFileReader.readCsv("names1.csv");
+    ArrayList<String[]> surnames1 = CsvFileReader.readCsv("surnames.csv");
+    ArrayList<String[]> surnames2 = CsvFileReader.readCsv("surnames2.csv");
+    ArrayList<String[]> midnamesF = CsvFileReader.readCsv("midnamesF.csv");
+    ArrayList<String[]> midnamesM = CsvFileReader.readCsv("midnamesM.csv");
 
     public Person randomUser() {
-        int i = (int) (Math.random() * 30);
+        PersonFactory Pfactory = new PersonFactory();
         int a = (int) (Math.random() * 2);
         switch (a) {
             case 0 -> {
-                if (i >= 20) {
-                    return Pfactory.createPerson(returnNames().get(i),
-                            returnSurnames().get((int) (Math.random() * 60)) + "à");
-                } else {
-                    return Pfactory.createPerson(returnNames().get(i),
-                            returnSurnames().get((int) (Math.random() * 60)));
-                }
+                return Pfactory.createPerson("Student");
             }
             case 1 -> {
-                if (i >= 20) {
-                    return Pfactory.createPerson(returnNames().get(i),
-                            returnSurnames(true).get((int) (Math.random() * 14)) + "à", returnMidnamesF().get((int) (Math.random() * 20)));
-                } else {
-                    return Pfactory.createPerson(returnNames().get(i),
-                            returnSurnames(true).get((int) (Math.random() * 14)), returnMidnamesM().get((int) (Math.random() * 20)));
-                }
+                return Pfactory.createPerson("Teacher");
             }
             default -> {
                 return null;
@@ -43,174 +30,23 @@ public class Library {
         }
     }
 
-    public void generatePeople() {
-        this.names = setNames();
-        this.surnames1 = setSurnames();
-        this.surnames2 = setSurnames(true);
-        this.midnamesM = setMidnames();
-        this.midnamesF = setMidnames(true);
-    }
-
-    public ArrayList<String> returnNames() {
+    public ArrayList<String[]> returnNames() {
         return this.names;
     }
 
-    public ArrayList<String> returnSurnames() {
+    public ArrayList<String[]> returnSurnames() {
         return this.surnames1;
     }
-    
-    public ArrayList<String> returnSurnames(boolean a) {
+
+    public ArrayList<String[]> returnSurnames(boolean a) {
         return this.surnames2;
     }
 
-    public ArrayList<String> returnMidnamesM() {
+    public ArrayList<String[]> returnMidnamesM() {
         return this.midnamesM;
     }
 
-    public ArrayList<String> returnMidnamesF() {
+    public ArrayList<String[]> returnMidnamesF() {
         return this.midnamesF;
     }
-
-    public static ArrayList<String> setNames() {
-        ArrayList<String> names = new ArrayList<>();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("names1.csv");
-            int length = fis.available();
-            byte[] data = new byte[length];
-            fis.read(data);
-            String text = new String(data);
-            String[] lines = text.split("\n");
-            for (int i = 0; i < 29; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length() - 1);
-                names.add(lines[i]);
-            }
-            names.add(lines[29]);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return names;
-    }
-
-    public static ArrayList<String> setSurnames() {
-        ArrayList<String> surnames = new ArrayList<>();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("surnames.csv");
-            int length = fis.available();
-            byte[] data = new byte[length];
-            fis.read(data);
-            String text = new String(data);
-            String[] lines = text.split("\n");
-            for (int i = 0; i <= 59; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length() - 1);
-                surnames.add(lines[i]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return surnames;
-    }
-
-    public static ArrayList<String> setSurnames(boolean a) {
-        ArrayList<String> surnames = new ArrayList<>();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("surnames2.csv");
-            int length = fis.available();
-            byte[] data = new byte[length];
-            fis.read(data);
-            String text = new String(data);
-            String[] lines = text.split("\n");
-            for (int i = 0; i < 14 ; i++) {
-                lines[i] = lines[i].substring(0, lines[i].length() - 1);
-                surnames.add(lines[i]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return surnames;
-    }
-
-    public static ArrayList<String> setMidnames() {
-        ArrayList<String> midnames = new ArrayList<>();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("names1.csv");
-            int length = fis.available();
-            byte[] data = new byte[length];
-            fis.read(data);
-            String text = new String(data);
-            String[] lines = text.split("\n");
-            for (int i = 0; i <= 19; i++) {
-                lines[i + 30] = lines[i + 30].substring(0, lines[i + 30].length() - 1);
-                midnames.add(lines[i + 30]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return midnames;
-    }
-
-    public static ArrayList<String> setMidnames(boolean a) {
-        ArrayList<String> midnames = new ArrayList<>();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("names1.csv");
-            int length = fis.available();
-            byte[] data = new byte[length];
-            fis.read(data);
-            String text = new String(data);
-            String[] lines = text.split("\n");
-            for (int i = 0; i < 19; i++) {
-                lines[i + 50] = lines[i + 50].substring(0, lines[i + 50].length() - 1);
-                midnames.add(lines[i + 50]);
-            }
-            midnames.add(lines[69]);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return midnames;
-    }
-
 }

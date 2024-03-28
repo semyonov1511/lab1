@@ -14,7 +14,6 @@ public class GUI extends javax.swing.JFrame {
     DefaultTreeModel model;
 
     public GUI() {
-        library.generatePeople();
         archive.generateBooks();
         archive.setBookList();
         initComponents();
