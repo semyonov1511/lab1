@@ -49,13 +49,12 @@ public class Archive {
         ArrayList<Literature> list = new ArrayList<>();
         for (int i = 0; i < RuDisciplines.size(); i++) {
             for (int j = 0; j < types.length; j++) {
-                list.add(Efactory.createBook("Учебник", RuDisciplines.get(i)[0], "русский", types[j]));
+                list.add(Efactory.createBook("Учебник", i,j));
             }
         }
         for (int i = 0; i < EnDisciplines.length; i++) {
             for (int j = 0; j < levels.length; j++) {
-                list.add(Efactory.createBook("Учебник", EnDisciplines[i], "english", levels[j],
-                        authors[i], universities[i]));
+                list.add(Efactory.createBook("Textbook", i,j));
             }
         }
         accountant.setBuilder(RuBuilder);
@@ -109,6 +108,37 @@ public class Archive {
                 return null;
             }
         }
+    }
+    
+    public String[] returnEnDisciplines() {
+        return this.EnDisciplines;
+    }
+
+    public ArrayList<String[]> returnRuDisciplines() {
+        return this.RuDisciplines;
+    }
+
+    public String[] returnAuthors() {
+        return this.authors;
+    }
+
+    public String[] returnTypes() {
+        return this.types;
+    }
+
+    public String[] returnUniversities() {
+        return this.universities;
+    }
+    public String[] returnRuFicList() {
+        return this.RuFicList;
+    }
+
+    public String[] returnEnFicList() {
+        return this.EnFicList;
+    }
+
+    public String[] returnLevels() {
+        return this.levels;
     }
 
 }
