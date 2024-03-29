@@ -9,7 +9,6 @@ import java.util.Random;
 import subpack.*;
 
 public class Archive {
-
     ArrayList<String[]> RuDisciplines = CsvFileReader.readCsv("RuDisciplines.csv");
     ArrayList<String[]> En = CsvFileReader.readCsv("EnDisciplines.csv");
     String[] EnDisciplines = setList(En,"disciplines");
