@@ -16,8 +16,6 @@ public class GUI extends javax.swing.JFrame {
     }
 
     DefaultMutableTreeNode users = new DefaultMutableTreeNode("Users");
-    DefaultMutableTreeNode teachers = new DefaultMutableTreeNode("Teachers");
-    DefaultMutableTreeNode library = new DefaultMutableTreeNode("Library");
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
