@@ -2,7 +2,7 @@
 package FicLit;
 
 public class Accountant {
-
+    
     private FicLitBuilder Builder;
 
     public void setBuilder(FicLitBuilder bldr) {

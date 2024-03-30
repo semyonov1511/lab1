@@ -16,8 +16,6 @@ public class GUI extends javax.swing.JFrame {
     }
 
     DefaultMutableTreeNode users = new DefaultMutableTreeNode("Users");
-    DefaultMutableTreeNode teachers = new DefaultMutableTreeNode("Teachers");
-    DefaultMutableTreeNode library = new DefaultMutableTreeNode("Library");
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -64,8 +62,7 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
-
-        ArrayList<Integer> randomNumbers = Archive.getInstance().setRandomList(86);
+//
 
         Person user = Library.getInstance().randomUser();
         Literature book;
@@ -74,9 +71,8 @@ public class GUI extends javax.swing.JFrame {
 
         int a = (int) (Math.random() * 8) + 3;
 
-        for (int i = 0; i < a; i++) {
-            book = Archive.getInstance().randomBook(randomNumbers, i);
-            concreteUser.add(new DefaultMutableTreeNode(book.getName()));
+        for (int i = 0; i < user.getlistOfBooks().size(); i++) {
+            concreteUser.add(new DefaultMutableTreeNode(user.getBook(i).getName()));
         }
 
         users.add(concreteUser);
